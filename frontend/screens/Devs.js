@@ -1,34 +1,64 @@
-import Tarefa from '../models/Tarefa.js';
-// parte temporária, enquanto não temos o bd, ele salva temporariamente//
-let tarefas = [];
-let proximoId = 1;
-// até aqui, tem trecho no cadastro tbm//
-export const cadastrarTarefa = (req, res) => {
+import React from 'react';
+import { StyleSheet, Text, View, ScrollView, Image, Pressable } from 'react-native';
 
-    const { titulo, tarefa, prazo } = req.body;
+export default function DesenvolvedoresScreen({ navigation }) {
+return ( <ScrollView contentContainerStyle={styles.scrollContainer}> <Text style={styles.titleText}>Desenvolvedores</Text>
 
-    const novaTarefa = new Tarefa(
-  proximoId++,
-  titulo,
-  tarefa,
-  prazo
+```
+  <View style={styles.card}>
+    <Image
+      source={require('../assets/devmateus.jpg')}
+      style={styles.profileImage}
+    />
+
+    <Text style={styles.boldText}>Mateus Conceição Barbosa</Text>
+    <Text style={styles.roleText}>Desenvolvedor Frontend</Text>
+    <Text style={styles.infoText}>
+      Estudante de Desenvolvimento de Sistemas no SENAI. Apaixonado por criar
+      soluções mobile limpas, democráticas e acessíveis.
+    </Text>
+  </View>
+
+  <View style={[styles.card, { marginTop: 20 }]}>
+    <Image
+      source={require('../assets/devlaiene.jpg')}
+      style={styles.profileImage}
+    />
+
+    <Text style={styles.boldText}>Laiene de Souza Santos</Text>
+    <Text style={styles.roleText}>Desenvolvedora Backend</Text>
+    <Text style={styles.infoText}>
+      Estudante de Desenvolvimento de Sistemas no SENAI. Focada em construir
+      arquiteturas robustas, seguras e eficientes para sustentar a inteligência
+      do app.
+    </Text>
+  </View>
+
+  <View style={[styles.card, { marginTop: 20, marginBottom: 20 }]}>
+    <Image
+      source={require('../assets/devriveris.jpg')}
+      style={styles.profileImage}
+    />
+
+    <Text style={styles.boldText}>Riveris Brandão Alcântara</Text>
+    <Text style={styles.roleText}>Desenvolvedor de Gamificação e Dinâmica</Text>
+    <Text style={styles.infoText}>
+      Estudante de Desenvolvimento de Sistemas no SENAI. Especialista em
+      transformar a organização de rotinas em uma experiência interativa,
+      leve e engajadora.
+    </Text>
+  </View>
+
+  <Pressable
+    style={styles.button}
+    onPress={() => navigation.navigate('Home')}
+  >
+    <Text style={styles.text}>Voltar ao Menu Inicial</Text>
+  </Pressable>
+</ScrollView>
+
 );
-
-tarefas.push(novaTarefa);
-
-    novaTarefa.mostrarDetalhes();
-
-    res.status(201).json({
-        mensagem: 'Tarefa cadastrada com sucesso',
-        tarefa: {
-            id: novaTarefa.id,//
-            titulo: novaTarefa.titulo,
-            tarefa: novaTarefa.tarefa,
-            prazo: novaTarefa.prazo
-        }
-    });
-
-};
+}
 
 const styles = StyleSheet.create({
   safe: {

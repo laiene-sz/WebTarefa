@@ -1,34 +1,44 @@
-import Tarefa from '../models/Tarefa.js';
-// parte temporária, enquanto não temos o bd, ele salva temporariamente//
-let tarefas = [];
-let proximoId = 1;
-// até aqui, tem trecho no cadastro tbm//
-export const cadastrarTarefa = (req, res) => {
+import React from 'react';
+import { StyleSheet, Text, View, Pressable, Linking, Image, SafeAreaView, ScrollView } from 'react-native';
 
-    const { titulo, tarefa, prazo } = req.body;
+export default function ContatosScreen({ navigation }) {
+  const abrirWhatsapp = () => {
+    Linking.openURL('https://chat.whatsapp.com/GUYiEaTUVBFBMo6OQ8yp53');
+  };
 
-    const novaTarefa = new Tarefa(
-  proximoId++,
-  titulo,
-  tarefa,
-  prazo
-);
+  return (
+    <SafeAreaView style={styles.safe}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        
+        <Image
+          source={require('../assets/rithmo_img.jpeg')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
 
-tarefas.push(novaTarefa);
+        <Text style={styles.titleText}>Contato</Text>
 
-    novaTarefa.mostrarDetalhes();
+        <View style={styles.card}>
+          <Text style={styles.infoText}>
+            Fale com a nossa equipe do Rithmo ou tire suas dúvidas diretamente pelo WhatsApp.
+          </Text>
 
-    res.status(201).json({
-        mensagem: 'Tarefa cadastrada com sucesso',
-        tarefa: {
-            id: novaTarefa.id,//
-            titulo: novaTarefa.titulo,
-            tarefa: novaTarefa.tarefa,
-            prazo: novaTarefa.prazo
-        }
-    });
+          <Pressable style={styles.button} onPress={abrirWhatsapp}>
+            <Text style={styles.text}>Enviar Mensagem</Text>
+          </Pressable>
 
-};
+          <Pressable
+            style={[styles.button, styles.backButton]}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Text style={styles.text}>Voltar ao Menu Inicial</Text>
+          </Pressable>
+        </View>
+
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   safe: {
@@ -86,7 +96,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: 10,
   },
   roleText: {
     color: '#6EF3FF',
@@ -101,6 +110,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     textAlign: 'center',
     marginTop: 12,
+    marginBottom: 15,
   },
   footer: {
     width: '90%',
@@ -136,7 +146,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     alignItems: 'center',
     width: '85%',
-    marginTop: 25,
+    marginTop: 10,
+  },
+  backButton: {
+    backgroundColor: '#6EF3FF',
   },
   text: {
     color: '#020B24',

@@ -1,34 +1,43 @@
-import Tarefa from '../models/Tarefa.js';
-// parte temporária, enquanto não temos o bd, ele salva temporariamente//
-let tarefas = [];
-let proximoId = 1;
-// até aqui, tem trecho no cadastro tbm//
-export const cadastrarTarefa = (req, res) => {
+class Tarefa {
+  constructor(id, titulo, tarefa, prazo) {
+    this.id = id;
+    this.titulo = titulo;
+    this.tarefa = tarefa;
+    this.prazo = prazo;
+  }
 
-    const { titulo, tarefa, prazo } = req.body;
+  mostrarDetalhes() {
+    return `Titulo: ${this.titulo}, Tarefa: ${this.tarefa}, Prazo: ${this.prazo}`;
+  }
+}
 
-    const novaTarefa = new Tarefa(
-  proximoId++,
-  titulo,
-  tarefa,
-  prazo
-);
+const tarefas = [];
 
-tarefas.push(novaTarefa);
-
-    novaTarefa.mostrarDetalhes();
-
-    res.status(201).json({
-        mensagem: 'Tarefa cadastrada com sucesso',
-        tarefa: {
-            id: novaTarefa.id,//
-            titulo: novaTarefa.titulo,
-            tarefa: novaTarefa.tarefa,
-            prazo: novaTarefa.prazo
-        }
-    });
-
+const adicionarTarefa = (tarefa) => {
+  tarefas.push(tarefa);
 };
+
+const listarTarefas = () => {
+  return tarefas;
+};
+
+const removerTarefa = (id) => {
+  const index = tarefas.findIndex((t) => t.id === id);
+
+  if (index !== -1) {
+    tarefas.splice(index, 1);
+  }
+};
+
+export {
+  Tarefa,
+  tarefas,
+  adicionarTarefa,
+  listarTarefas,
+  removerTarefa
+};
+
+export default Tarefa;
 
 const styles = StyleSheet.create({
   safe: {
@@ -86,7 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: 10,
   },
   roleText: {
     color: '#6EF3FF',
@@ -101,6 +109,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     textAlign: 'center',
     marginTop: 12,
+    marginBottom: 15,
   },
   footer: {
     width: '90%',
@@ -136,7 +145,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     alignItems: 'center',
     width: '85%',
-    marginTop: 25,
+    marginTop: 10,
+  },
+  backButton: {
+    backgroundColor: '#6EF3FF',
   },
   text: {
     color: '#020B24',

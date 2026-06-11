@@ -1,34 +1,51 @@
-import Tarefa from '../models/Tarefa.js';
-// parte temporária, enquanto não temos o bd, ele salva temporariamente//
-let tarefas = [];
-let proximoId = 1;
-// até aqui, tem trecho no cadastro tbm//
-export const cadastrarTarefa = (req, res) => {
+import React from 'react';
+import { StyleSheet, Text, View, ScrollView, Pressable, Image, SafeAreaView } from 'react-native';
 
-    const { titulo, tarefa, prazo } = req.body;
+export default function FuncionalidadesScreen({ navigation }) {
+  return (
+    <SafeAreaView style={styles.safe}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        
+        <Image
+          source={require('../assets/rithmo_img.jpeg')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
 
-    const novaTarefa = new Tarefa(
-  proximoId++,
-  titulo,
-  tarefa,
-  prazo
-);
+        <Text style={styles.titleText}>Principais Funcionalidades</Text>
 
-tarefas.push(novaTarefa);
+        <View style={styles.card}>
+          <Text style={styles.boldText}>• Organização de Rotina Inteligente</Text>
+          <Text style={styles.infoText}>
+            Distribuição equilibrada de tarefas ao longo do dia com base nos seus limites de energia e foco.
+          </Text>
 
-    novaTarefa.mostrarDetalhes();
+          <Text style={styles.boldText}>• Monitoramento de Carga Mental</Text>
+          <Text style={styles.infoText}>
+            Alertas visuais e sugestões automáticas de pausas quando o volume de afazeres diários estiver muito alto.
+          </Text>
 
-    res.status(201).json({
-        mensagem: 'Tarefa cadastrada com sucesso',
-        tarefa: {
-            id: novaTarefa.id,//
-            titulo: novaTarefa.titulo,
-            tarefa: novaTarefa.tarefa,
-            prazo: novaTarefa.prazo
-        }
-    });
+          <Text style={styles.boldText}>• Histórico de Hábitos e Humor</Text>
+          <Text style={styles.infoText}>
+            Relatórios detalhados que cruzam a conclusão das suas tarefas diárias com o seu bem-estar emocional.
+          </Text>
 
-};
+          <Text style={styles.boldText}>• Gamificação e Experiência do Usuário</Text>
+          <Text style={styles.infoText}>
+            Gamificação leve para incentivar a conclusão de tarefas, como desafios e prolongar as metas afim de promover bons hábitos.
+          </Text>
+
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Text style={styles.text}>Voltar ao Menu Inicial</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   safe: {
@@ -86,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 14,
   },
   roleText: {
     color: '#6EF3FF',
@@ -101,6 +118,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     textAlign: 'center',
     marginTop: 12,
+    marginBottom: 10,
   },
   footer: {
     width: '90%',
@@ -137,6 +155,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '85%',
     marginTop: 25,
+    marginBottom: 10,
   },
   text: {
     color: '#020B24',

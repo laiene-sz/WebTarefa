@@ -1,34 +1,42 @@
-import Tarefa from '../models/Tarefa.js';
-// parte temporária, enquanto não temos o bd, ele salva temporariamente//
-let tarefas = [];
-let proximoId = 1;
-// até aqui, tem trecho no cadastro tbm//
-export const cadastrarTarefa = (req, res) => {
+import React from 'react';
+import { StyleSheet, Text, View, Pressable, Image, SafeAreaView, ScrollView } from 'react-native';
 
-    const { titulo, tarefa, prazo } = req.body;
+export default function SobreScreen({ navigation }) {
+  return (
+    <SafeAreaView style={styles.safe}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        
+        <Image
+          source={require('../assets/rithmo_img.jpeg')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
 
-    const novaTarefa = new Tarefa(
-  proximoId++,
-  titulo,
-  tarefa,
-  prazo
-);
+        <Text style={styles.titleText}>Sobre o Projeto</Text>
 
-tarefas.push(novaTarefa);
+        <View style={styles.card}>
+          <Text style={styles.boldText}>Nome do Sistema:</Text>
+          <Text style={styles.infoText}>Rithmo</Text>
 
-    novaTarefa.mostrarDetalhes();
+          <Text style={styles.boldText}>Descrição:</Text>
+          <Text style={styles.infoText}>
+            O Rithmo é um gerenciador de tarefas inteligente focado em produtividade saudável.
+            Ele atua como um verdadeiro aliado da saúde mental, ajudando a organizar a rotina
+            sem gerar sobrecarga ou ansiedade.
+          </Text>
 
-    res.status(201).json({
-        mensagem: 'Tarefa cadastrada com sucesso',
-        tarefa: {
-            id: novaTarefa.id,//
-            titulo: novaTarefa.titulo,
-            tarefa: novaTarefa.tarefa,
-            prazo: novaTarefa.prazo
-        }
-    });
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Text style={styles.text}>Voltar ao Menu Inicial</Text>
+          </Pressable>
+        </View>
 
-};
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   safe: {
